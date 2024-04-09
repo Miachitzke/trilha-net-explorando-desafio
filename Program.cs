@@ -6,20 +6,55 @@ Console.OutputEncoding = Encoding.UTF8;
 // Cria os modelos de hóspedes e cadastra na lista de hóspedes
 List<Pessoa> hospedes = new List<Pessoa>();
 
-Pessoa p1 = new Pessoa(nome: "Hóspede 1");
-Pessoa p2 = new Pessoa(nome: "Hóspede 2");
+Reserva reserva = new Reserva();
 
-hospedes.Add(p1);
-hospedes.Add(p2);
+bool exibirMenu = true;
 
-// Cria a suíte
-Suite suite = new Suite(tipoSuite: "Premium", capacidade: 2, valorDiaria: 30);
+// Realiza o loop do menu
+while (exibirMenu)
+{
+    Console.Clear();
+    Console.WriteLine("Bem-vindo ao sistema de hospedagem");
+    Console.WriteLine("\nDigite a sua opção:");
+    Console.WriteLine("1 - Cadastrar suíte");
+    Console.WriteLine("2 - Cadastrar hospede");
+    Console.WriteLine("3 - Check-out suíte");
+    Console.WriteLine("4 - Listar hóspedes");
+    Console.WriteLine("5 - Listar suítes");
+    Console.WriteLine("6 - Encerrar\n");
 
-// Cria uma nova reserva, passando a suíte e os hóspedes
-Reserva reserva = new Reserva(diasReservados: 5);
-reserva.CadastrarSuite(suite);
-reserva.CadastrarHospedes(hospedes);
+    switch (Console.ReadLine())
+    {
+        case "1":
+            reserva.CadastrarSuite();
+            break;
 
-// Exibe a quantidade de hóspedes e o valor da diária
-Console.WriteLine($"Hóspedes: {reserva.ObterQuantidadeHospedes()}");
-Console.WriteLine($"Valor diária: {reserva.CalcularValorDiaria()}");
+        case "2":
+            reserva.CadastrarHospedes();
+            break;
+
+        case "3":
+            reserva.Checkout();
+            break;
+
+        case "4":
+            reserva.ListarHospedes();
+            break;
+
+        case "5":
+            reserva.ListarSuites();
+            break;
+
+        case "6":
+            Console.WriteLine("\nObrigado por utilizar o sistema de hospedagem");
+            exibirMenu = false;
+            break;
+
+        default:
+            Console.WriteLine("\nOpção inválida");
+            break;
+    }
+
+    Console.WriteLine("\nPressione enter para continuar");
+    Console.ReadLine();
+}
